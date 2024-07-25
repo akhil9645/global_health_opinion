@@ -3,7 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_health_opinion_sample/util/camera_services.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../controller.dart/app_controller.dart';
 import '../main.dart';
@@ -99,5 +99,13 @@ class _CameraViewState extends State<CameraView> {
   void dispose() {
     _camera.dispose();
     super.dispose();
+  }
+}
+
+class CameraServices {
+  static Future cameraPickImage() async {
+    ImagePicker _picker = ImagePicker();
+    XFile? f = await _picker.pickImage(source: ImageSource.gallery);
+    return f;
   }
 }

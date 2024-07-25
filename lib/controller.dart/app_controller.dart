@@ -1,20 +1,25 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_health_opinion_sample/main.dart';
+import 'package:global_health_opinion_sample/util/constant.dart';
+import 'package:global_health_opinion_sample/util/dio_handler.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pedometer/pedometer.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AppController extends GetxController {
   var isNavigating = false.obs;
-  Rx<bool> loginpassobscureText = true.obs;
-  Rx<bool> registerpassobscureText = true.obs;
-  Rx<bool> registerconfirmpassobscureText = true.obs;
-  Rx<bool> currentpassobscureText = true.obs;
-  Rx<bool> newpasspassobscureText = true.obs;
-  Rx<bool> newconfirmpassobscureText = true.obs;
+
+  Rx<bool> isRecording = false.obs;
   int activeNavBarItem = 0;
+  Rx<bool> saveClicked = true.obs;
+  Rx<String> recordingPath = ''.obs;
+  Rx<bool> isPlaying = false.obs;
   Rx<String?> selectedcountry = Rx<String?>(null);
+  RxList<String> filesResult = <String>[].obs;
   final List<String> items = [
     'United States',
     'Canada',
@@ -39,6 +44,7 @@ class AppController extends GetxController {
     'Radiology',
     'Surgery',
   ];
+
   int checkBoxValue = 0;
   bool checkBox1 = false;
   bool checkBox2 = false;
@@ -117,7 +123,88 @@ class AppController extends GetxController {
     if (!isNavigating.value) {
       isNavigating.value = true;
       await Future.delayed(const Duration(seconds: 2));
+      await Permission.activityRecognition.request();
+      await Permission.location.request();
       Get.offAllNamed(PageRouteName.splashDiologue);
     }
+  }
+
+  late Stream<StepCount> _stepCountStream;
+  late Stream<PedestrianStatus> _pedestrianStatusStream;
+  Rx<String> status = '?'.obs, steps = '?'.obs;
+
+  void onStepCount(StepCount event) {
+    print(event);
+
+    steps.value = event.steps.toString();
+  }
+
+  void onPedestrianStatusChanged(PedestrianStatus event) {
+    print(event);
+
+    status.value = event.status;
+  }
+
+  void onPedestrianStatusError(error) {
+    print('onPedestrianStatusError: $error');
+
+    status.value = 'Pedestrian Status not available';
+
+    print(status.value);
+  }
+
+  void onStepCountError(error) {
+    print('onStepCountError: $error');
+
+    steps.value = 'Step Count not available';
+  }
+
+  void initPlatformState(var mounted) {
+    _pedestrianStatusStream = Pedometer.pedestrianStatusStream;
+    _pedestrianStatusStream
+        .listen(onPedestrianStatusChanged)
+        .onError(onPedestrianStatusError);
+
+    _stepCountStream = Pedometer.stepCountStream;
+    _stepCountStream.listen(onStepCount).onError(onStepCountError);
+
+    if (!mounted) return;
+  }
+
+  DateTime currentDate = DateTime.now();
+  DateTime selectedDate = DateTime.now();
+  Future<void> selectStartDate(
+      BuildContext context, TextEditingController controller) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: currentDate,
+      firstDate: DateTime(2015, 8),
+      lastDate: currentDate,
+    );
+    if (picked != null && picked != currentDate) {
+      selectedDate = picked;
+      controller.text = AppUtil.formatter.format(selectedDate);
+    }
+  }
+
+  apiCheck() async {
+    var body = {
+      "Token": "",
+      "Prokey": "",
+      "Tags": [
+        {"T": "Token", "V": "jjoseph@swiftkode.com"},
+        {"T": "Pass", "V": "admin"},
+        {"T": "Action", "V": "XCLSIGN"},
+        {"T": "Product", "V": "ey1XeErax/re3S1qnGimugx57pI9ZBapZO59VNla+FU="}
+      ]
+    };
+    var response = await DioHandler.dioPOST(body: jsonEncode(body));
+    log(response.toString());
+  }
+
+  getdata() async {
+    String path = 'snjdnd';
+    var response = await DioHandler.dioGET(path: path);
+    log(response.toString());
   }
 }

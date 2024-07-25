@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_health_opinion_sample/controller.dart/app_controller.dart';
+import 'package:global_health_opinion_sample/controller.dart/app_usercontroller.dart';
 import 'package:global_health_opinion_sample/main.dart';
 import 'package:global_health_opinion_sample/util/constant.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
 
-  final AppController controller = Get.put(AppController());
+  final AppUserController controller = Get.put(AppUserController());
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   @override

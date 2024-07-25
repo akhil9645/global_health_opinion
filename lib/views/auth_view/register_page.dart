@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_health_opinion_sample/controller.dart/app_controller.dart';
+import 'package:global_health_opinion_sample/controller.dart/app_usercontroller.dart';
 import 'package:global_health_opinion_sample/main.dart';
 import 'package:global_health_opinion_sample/util/constant.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:iconly/iconly.dart';
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
-  final AppController controller = Get.put(AppController());
-  TextEditingController namecontroller = TextEditingController();
+  TextEditingController firstnamecontroller = TextEditingController();
+  TextEditingController lastnamecontroller = TextEditingController();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController confirmcontroller = TextEditingController();
+  TextEditingController phonecontroller = TextEditingController();
+  final AppUserController controller = Get.put(AppUserController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class RegisterPage extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.only(top: 25, right: 25, left: 25),
+        padding: EdgeInsets.only(right: 25, left: 25),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,11 +65,32 @@ class RegisterPage extends StatelessWidget {
                   border: Border.all(color: Colors.grey),
                 ),
                 child: TextFormField(
-                  controller: namecontroller,
+                  controller: firstnamecontroller,
                   cursorColor: AppUtil().backgroundColor,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(IconlyBold.user_3),
-                    hintText: 'Name',
+                    hintText: 'First Name',
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.all(12),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey),
+                ),
+                child: TextFormField(
+                  controller: lastnamecontroller,
+                  cursorColor: AppUtil().backgroundColor,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(IconlyBold.user_3),
+                    hintText: 'Last Name',
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     contentPadding: EdgeInsets.all(12),
@@ -88,6 +111,26 @@ class RegisterPage extends StatelessWidget {
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.email_rounded),
                     hintText: 'Email',
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.all(12),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.grey),
+                ),
+                child: TextFormField(
+                  controller: phonecontroller,
+                  cursorColor: AppUtil().backgroundColor,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(IconlyBold.call),
+                    hintText: 'Phone Number',
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     contentPadding: EdgeInsets.all(12),
@@ -163,7 +206,15 @@ class RegisterPage extends StatelessWidget {
 
               const SizedBox(height: 40),
               GestureDetector(
-                onTap: () => Get.toNamed(PageRouteName.login),
+                onTap: () async {
+                  controller.userRegistration(
+                    firstnamecontroller.text,
+                    lastnamecontroller.text,
+                    emailcontroller.text,
+                    passwordcontroller.text,
+                    phonecontroller.text,
+                  );
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 20,

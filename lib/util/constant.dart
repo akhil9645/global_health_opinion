@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:global_health_opinion_sample/controller.dart/app_controller.dart';
 import 'package:global_health_opinion_sample/main.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 
 class AppUtil {
   Color backgroundColor = Color(0xFF014AAD);
+  static DateFormat formatter = DateFormat('dd MMM yyyy');
 
   static Widget customBottomBar(
       AppController appController, BuildContext context) {
@@ -103,6 +105,7 @@ class AppUtil {
         context: context,
         builder: (BuildContext context) {
           return Dialog(
+            backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

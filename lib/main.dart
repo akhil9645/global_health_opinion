@@ -1,24 +1,27 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:global_health_opinion_sample/views/change_password.dart';
-import 'package:global_health_opinion_sample/views/forget_password.dart';
-import 'package:global_health_opinion_sample/views/login_page.dart';
-import 'package:global_health_opinion_sample/views/my_reviews.dart';
-import 'package:global_health_opinion_sample/views/new_reviews.dart';
-import 'package:global_health_opinion_sample/views/new_reviews/current_medications.dart';
-import 'package:global_health_opinion_sample/views/new_reviews/medical_details.dart';
-import 'package:global_health_opinion_sample/views/new_reviews/medical_records.dart';
-import 'package:global_health_opinion_sample/views/new_reviews/patient_information.dart';
-import 'package:global_health_opinion_sample/views/new_reviews/payments.dart';
-import 'package:global_health_opinion_sample/views/new_reviews/upload_records.dart';
-import 'package:global_health_opinion_sample/views/profile.dart';
-import 'package:global_health_opinion_sample/views/register_page.dart';
-import 'package:global_health_opinion_sample/views/splash_diologue.dart';
-import 'package:global_health_opinion_sample/views/splash_screen.dart';
+import 'package:global_health_opinion_sample/views/auth_view/change_password.dart';
+import 'package:global_health_opinion_sample/views/auth_view/forget_password.dart';
+import 'package:global_health_opinion_sample/views/auth_view/login_page.dart';
+import 'package:global_health_opinion_sample/views/my_reviews/my_reviews.dart';
+import 'package:global_health_opinion_sample/views/new_reviews/new_reviews.dart';
+import 'package:global_health_opinion_sample/views/new_reviews/new_review_fields_view/current_medications.dart';
+import 'package:global_health_opinion_sample/views/new_reviews/new_review_fields_view/medical_details.dart';
+import 'package:global_health_opinion_sample/views/new_reviews/new_review_fields_view/medical_records.dart';
+import 'package:global_health_opinion_sample/views/new_reviews/new_review_fields_view/patient_information.dart';
+import 'package:global_health_opinion_sample/views/payments_view/payments.dart';
+import 'package:global_health_opinion_sample/views/new_reviews/new_review_fields_view/upload_records.dart';
+import 'package:global_health_opinion_sample/views/profile_view/profile.dart';
+import 'package:global_health_opinion_sample/views/auth_view/register_page.dart';
+import 'package:global_health_opinion_sample/views/splash_view/splash_diologue.dart';
+import 'package:global_health_opinion_sample/views/splash_view/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 late List<CameraDescription> cameras;
+String formatDate(DateTime d) {
+  return d.toString().substring(0, 19);
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

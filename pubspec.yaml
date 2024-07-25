@@ -16,7 +16,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ">=3.4.3 <4.0.0"
@@ -33,11 +33,19 @@ dependencies:
   google_fonts:
   iconly:
   get:
-  hive_flutter:
-  hive:
-  dropdown_button2: ^2.3.9
-  image_picker: ^1.1.2
-  camera: ^0.11.0+1
+  dropdown_button2:
+  image_picker:
+  camera:
+  pedometer:
+  permission_handler:
+  flutter_svg:
+  path_provider:
+  record:
+  intl:
+  just_audio:
+  path:
+  dio:
+  file_picker:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -47,7 +55,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
-  hive_generator:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -68,10 +75,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/gho_logo-CAevCtDl.png
-    - assets/images/v868-sasi-04.jpg
-    - assets/images/image_processing20220720-23580-br5je7.gif
-    - assets/images/387552.png
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

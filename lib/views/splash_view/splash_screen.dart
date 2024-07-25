@@ -2,9 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_health_opinion_sample/controller.dart/app_controller.dart';
 
-class SplashScreen extends StatelessWidget {
-  SplashScreen({super.key});
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    mounted;
+    controller.initPlatformState(mounted);
+  }
+
   final AppController controller = Get.put(AppController());
+
   @override
   Widget build(BuildContext context) {
     controller.splashcheck();

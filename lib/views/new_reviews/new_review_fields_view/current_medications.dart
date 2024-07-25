@@ -1,32 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:global_health_opinion_sample/util/constant.dart';
 
 class CurrentMedications extends StatelessWidget {
   const CurrentMedications({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           'Current Medication',
           style: TextStyle(
-              color: Colors.grey.shade800,
-              fontSize: 22,
-              fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
         ),
         elevation: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppUtil().backgroundColor,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 25, top: 5),
+          padding: const EdgeInsets.only(left: 25, top: 3),
           child: GestureDetector(
             onTap: () => Get.back(),
             child: Icon(
               Icons.arrow_back_ios_new,
-              size: 30,
-              color: Colors.grey.shade700,
+              size: 25,
+              color: Colors.white,
             ),
           ),
         ),
@@ -37,7 +35,7 @@ class CurrentMedications extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 75,
+              height: 20,
             ),
             Text(
               'Your Current Medications',
@@ -161,6 +159,6 @@ class CurrentMedications extends StatelessWidget {
           ],
         ),
       ),
-    ));
+    );
   }
 }

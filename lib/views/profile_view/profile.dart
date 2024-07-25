@@ -21,6 +21,15 @@ class Profile extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         bottomNavigationBar: AppUtil.customBottomBar(controller, context),
+        appBar: AppBar(
+          title: Text(
+            'Profile',
+            style: TextStyle(
+                color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+          ),
+          elevation: 0,
+          backgroundColor: AppUtil().backgroundColor,
+        ),
         body: Padding(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: SingleChildScrollView(
@@ -28,7 +37,7 @@ class Profile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 100,
+                  height: 20,
                 ),
                 Text(
                   'Personal Information',
