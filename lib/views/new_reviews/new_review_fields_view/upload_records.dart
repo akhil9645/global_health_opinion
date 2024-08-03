@@ -165,7 +165,7 @@ class UploadRecords extends StatelessWidget {
                   ),
                   child: const Center(
                     child: Text(
-                      'Save',
+                      'Upload',
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

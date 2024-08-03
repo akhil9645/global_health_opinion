@@ -1,9 +1,13 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_health_opinion_sample/views/auth_view/change_password.dart';
 import 'package:global_health_opinion_sample/views/auth_view/forget_password.dart';
 import 'package:global_health_opinion_sample/views/auth_view/login_page.dart';
+import 'package:global_health_opinion_sample/views/auth_view/otp_confirmation.dart';
 import 'package:global_health_opinion_sample/views/my_reviews/my_reviews.dart';
 import 'package:global_health_opinion_sample/views/new_reviews/new_reviews.dart';
 import 'package:global_health_opinion_sample/views/new_reviews/new_review_fields_view/current_medications.dart';
@@ -17,6 +21,7 @@ import 'package:global_health_opinion_sample/views/auth_view/register_page.dart'
 import 'package:global_health_opinion_sample/views/splash_view/splash_diologue.dart';
 import 'package:global_health_opinion_sample/views/splash_view/splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:in_app_update/in_app_update.dart';
 
 late List<CameraDescription> cameras;
 String formatDate(DateTime d) {
@@ -39,7 +44,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: Colors.blue,
           fontFamily: GoogleFonts.poppins().fontFamily),
-      home: SplashScreen(),
+      home: AppUpdater(),
       getPages: [
         GetPage(
           name: PageRouteName.splash,
@@ -100,6 +105,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: PageRouteName.payments,
           page: () => Payments(),
+        ),
+        GetPage(
+          name: PageRouteName.otpConfirmation,
+          page: () => OtpConfirmation(),
         )
       ],
     );
@@ -122,4 +131,41 @@ class PageRouteName {
   static const medicalrecords = '/medicalrecords';
   static const currentmedications = '/currentmedications';
   static const payments = '/payments';
+  static const otpConfirmation = '/otpConfirmation';
+}
+
+class AppUpdater extends StatefulWidget {
+  const AppUpdater({Key? key}) : super(key: key);
+
+  @override
+  State<AppUpdater> createState() => _AppUpdaterState();
+}
+
+class _AppUpdaterState extends State<AppUpdater> {
+  Future<void> _checkForUpdate() async {
+    log('Checking For Update');
+    try {
+      final isUpdateAvailable = await InAppUpdate.checkForUpdate();
+      if (isUpdateAvailable.updateAvailability ==
+          UpdateAvailability.updateAvailable) {
+        await InAppUpdate.startFlexibleUpdate();
+        await InAppUpdate.completeFlexibleUpdate();
+      }
+    } catch (e) {
+      log('Error while checking for update: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) {
+      _checkForUpdate();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SplashScreen();
+  }
 }

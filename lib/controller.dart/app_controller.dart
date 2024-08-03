@@ -10,6 +10,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../util/shared_prefences.dart';
+
 class AppController extends GetxController {
   var isNavigating = false.obs;
 
@@ -125,7 +127,12 @@ class AppController extends GetxController {
       await Future.delayed(const Duration(seconds: 2));
       await Permission.activityRecognition.request();
       await Permission.location.request();
-      Get.offAllNamed(PageRouteName.splashDiologue);
+      var userToken = await SharedPrefs.getString(SharedPrefs.TOKEN);
+      if (userToken != null) {
+        Get.offAllNamed(PageRouteName.myreviews);
+      } else {
+        Get.offAllNamed(PageRouteName.splashDiologue);
+      }
     }
   }
 

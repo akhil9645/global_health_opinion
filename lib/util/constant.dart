@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:global_health_opinion_sample/controller.dart/app_controller.dart';
+import 'package:global_health_opinion_sample/controller.dart/app_usercontroller.dart';
 import 'package:global_health_opinion_sample/main.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
@@ -101,6 +102,10 @@ class AppUtil {
   }
 
   Future<dynamic> logoutalert(BuildContext context) {
+    Get.lazyPut(
+      () => AppUserController(),
+    );
+    final AppUserController controller = Get.find();
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -134,11 +139,10 @@ class AppUtil {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      logoutAlertButtons(
-                          () => Get.offAllNamed(PageRouteName.login),
-                          'Yes',
-                          Colors.grey.shade300,
-                          Colors.black),
+                      logoutAlertButtons(() {
+                        print('entered logout button');
+                        controller.logoutCheck();
+                      }, 'Yes', Colors.grey.shade300, Colors.black),
                       const SizedBox(
                         width: 5,
                       ),
